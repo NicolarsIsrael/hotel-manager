@@ -1,0 +1,15 @@
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.Service.deps.json
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.Service.dll
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.Service.pdb
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.Core.dll
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.DTO.dll
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.Core.pdb
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\bin\Debug\netcoreapp3.1\HotelManager.DTO.pdb
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.csproj.AssemblyReference.cache
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.AssemblyInfoInputs.cache
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.AssemblyInfo.cs
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.csproj.CoreCompileInputs.cache
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.csproj.CopyComplete
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.dll
+C:\Users\DELL\source\repos\Hotel-Manager\HotelManager.Service\obj\Debug\netcoreapp3.1\HotelManager.Service.pdb

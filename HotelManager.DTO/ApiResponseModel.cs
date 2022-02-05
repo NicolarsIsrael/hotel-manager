@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+
+namespace HotelManager.DTO
+{
+    public class ApiResponseModel
+    {
+        public bool hasError { get; set; }
+        public string message { get; set; }
+        public int statusCode { get; set; }
+        public object data { get; set; }
+        public override string ToString() => JsonSerializer.Serialize(this);
+    }
+}
