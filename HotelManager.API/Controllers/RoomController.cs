@@ -76,7 +76,8 @@ namespace HotelManager.API.Controllers
                     .Select(r=>new RoomModel { 
                         Id = r.Id,
                         NextAvailableDateString = r.NextAvailableDate.ToString("dd/MMM/yyyy - hh:mm"),
-                        Size = r.Size
+                        Size = r.Size,
+                        Status = IsRoomAvailable(r.NextAvailableDate) ? "Available" : "Booked",
                     });;
 
                 return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
@@ -290,6 +291,41 @@ namespace HotelManager.API.Controllers
                 });
             }
             catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status500InternalServerError,
+                    message = "Internal server error",
+                    serverError = true
+                });
+            }
+        }
+
+        [Route("user/booked")]
+        [Authorize(Roles =AppConstant.GuestUserRole)]
+        public async Task<IActionResult> UserBookedRooms()
+        {
+            try
+            {
+                var userId = _jwtService.GetLoggedInUserId();
+                var rooms = _context.Room.Where(r => r.CurrentGuest == userId)
+                    .Select(r => new RoomModel
+                    {
+                        Id = r.Id,
+                        NextAvailableDateString = r.NextAvailableDate.ToString("dd/MMM/yyyy - hh:mm"),
+                        Size = r.Size,
+                        Status = IsRoomAvailable(r.NextAvailableDate) ? "Available" : "Booked",
+                    });
+
+                return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status200OK,
+                    data = rooms,
+                    serverError = false,
+                    validationError = false,
+                });
+            }
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel
                 {
