@@ -32,7 +32,7 @@ namespace HotelMnager.Web
                     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
                         options =>
                         {
-                            options.LoginPath = new PathString("/account/sign-in");
+                            options.LoginPath = new PathString("/account/signin");
                             options.AccessDeniedPath = new PathString("/account/denied");
                         });
 

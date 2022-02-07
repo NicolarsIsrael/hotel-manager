@@ -97,5 +97,18 @@ namespace HotelMnager.Web.Controllers
             };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.SetString(AppConstant.AccessToken, "");
+            await SignOutUser();
+            return RedirectToAction("index", "Home");
+        }
+
+        public async Task SignOutUser()
+        {
+            HttpContext.Session.SetString(AppConstant.AccessToken, "");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
     }
 }
