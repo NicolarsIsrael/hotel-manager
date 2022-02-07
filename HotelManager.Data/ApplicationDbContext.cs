@@ -17,6 +17,6 @@ namespace HotelManager.Data
             base.OnModelCreating(builder);
         }
 
-        //public DbSet<Company> Company { get; set; }
+        public DbSet<Room> Room { get; set; }
     }
 }

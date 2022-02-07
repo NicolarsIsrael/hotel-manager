@@ -42,24 +42,25 @@ namespace HotelManager.API.Controllers
                     {
                         statusCode = StatusCodes.Status200OK,
                         data = token,
-                        hasError = false
+                        serverError = false,
+                        validationError = false
                     });
                 }
                 return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
                 {
                     statusCode = StatusCodes.Status401Unauthorized,
                     message = "Invalid Username or Password",
-                    hasError = true
+                    serverError = false,
+                    validationError = true
                 });
             }
             catch (Exception ex)
             {
-                // log error ;_logger.Log(LogLevel.Error, ex, "SignIn");
                 return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
                 {
                     statusCode = StatusCodes.Status500InternalServerError,
                     message = ex.Message,
-                    hasError = true
+                    serverError = true
                 });
             }
         }
@@ -71,12 +72,23 @@ namespace HotelManager.API.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest("Invalid details supplied");
+                    return StatusCode(StatusCodes.Status400BadRequest, new ApiResponseModel
+                    {
+                        statusCode = StatusCodes.Status400BadRequest,
+                        message = "Invalid details supplied",
+                        serverError = false,
+                        validationError = true
+                    });
 
                 var userExists = await _userManager.FindByEmailAsync(model.Email);
                 if (userExists != null)
-                    return StatusCode(StatusCodes.Status500InternalServerError, "User already exists");
-                // todo: handle user already exists properly
+                    return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                    {
+                        statusCode = StatusCodes.Status401Unauthorized,
+                        message = "User with the email already exists",
+                        serverError = false,
+                        validationError = true
+                    });
 
                 ApplicationUser user = new ApplicationUser()
                 {
@@ -87,15 +99,26 @@ namespace HotelManager.API.Controllers
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
-                    return StatusCode(StatusCodes.Status500InternalServerError, "User creation failed! Please check user details and try again.");
-                // todo: handle exception properly
+                    return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                    {
+                        statusCode = StatusCodes.Status401Unauthorized,
+                        message = "User creation failed, please check your details and try again.",
+                        serverError = false,
+                        validationError = true
+                    });
 
                 if (!await _roleManager.RoleExistsAsync(AppConstant.GuestUserRole))
                     await _roleManager.CreateAsync(new ApplicationRole(AppConstant.GuestUserRole));
                 await _userManager.AddToRoleAsync(user, AppConstant.GuestUserRole);
 
                 var token = await _jwtHandlerService.GenerateToken(user);
-                return Ok(token);
+                return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status200OK,
+                    data = token,
+                    serverError = false,
+                    validationError = false
+                });
             }
             catch (Exception ex)
             {

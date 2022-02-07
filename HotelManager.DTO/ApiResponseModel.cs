@@ -7,7 +7,8 @@ namespace HotelManager.DTO
 {
     public class ApiResponseModel
     {
-        public bool hasError { get; set; }
+        public bool validationError { get; set; }
+        public bool serverError { get; set; }
         public string message { get; set; }
         public int statusCode { get; set; }
         public object data { get; set; }
