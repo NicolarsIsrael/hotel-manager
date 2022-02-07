@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace HotelManager.DTO
@@ -24,8 +25,9 @@ namespace HotelManager.DTO
         /// <summary>
         /// Determines whether a room is available for booking
         /// </summary>
-        public bool IsAvailable { get; set; }
+        //public bool IsAvailable { get; set; }
 
+        [Display(Name ="Next available date")]
         /// <summary>
         /// Next date and time in which the room is available for booking
         /// </summary>
@@ -35,5 +37,18 @@ namespace HotelManager.DTO
         /// Id of the current guest in the room
         /// </summary>
         public string CurrentGuest { get; set; }
+
+        [Display(Name ="Guest full name")]
+        /// <summary>
+        /// Full name of the current guest occupying the room
+        /// </summary>
+        public string CurrentGuestFullname { get; set; }
+
+        [Required(ErrorMessage ="Room size is required")]
+        /// <summary>
+        /// Size of room
+        /// </summary>
+        public int Size { get; set; }
+
     }
 }

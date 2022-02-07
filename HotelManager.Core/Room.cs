@@ -7,11 +7,6 @@ namespace HotelManager.Core
     public class Room : Entity
     {
         /// <summary>
-        /// Determines whether a room is available for booking
-        /// </summary>
-        public bool IsAvailable { get; set; }
-
-        /// <summary>
         /// Next date and time in which the room is available for booking
         /// </summary>
         public DateTime NextAvailableDate { get; set; }
@@ -20,6 +15,11 @@ namespace HotelManager.Core
         /// Id of the current guest in the room
         /// </summary>
         public string CurrentGuest { get; set; }
+
+        /// <summary>
+        /// Size of room e.g 2-man room
+        /// </summary>
+        public int Size { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 using HotelMnager.Web.ApiManager;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,15 @@ namespace HotelMnager.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                        options =>
+                        {
+                            options.LoginPath = new PathString("/account/sign-in");
+                            options.AccessDeniedPath = new PathString("/account/denied");
+                        });
+
             services.AddHttpContextAccessor();
             services.AddSession();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
