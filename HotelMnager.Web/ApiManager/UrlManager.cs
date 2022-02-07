@@ -22,7 +22,7 @@ namespace HotelMnager.Web.ApiManager
         public string Room() { return $"{ApiBase}room"; }
         public string RoomGetAvailable() { return $"{ApiBase}room/available"; }
         public string RoomCreateNew() { return $"{ApiBase}room/create-new-room"; }
-        public string RoomBookRoom(int id) { return $"{ApiBase}room/book/{id}"; }
+        public string RoomBookRoom(int id, int days) { return $"{ApiBase}room/book/{id}?days={days}"; }
         public string RoomCancelBooking(int id, int days) { return $"{ApiBase}room/cancel-booking/{id}?days={days}"; }
         #endregion
     }

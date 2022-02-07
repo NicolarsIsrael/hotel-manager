@@ -32,15 +32,21 @@ namespace HotelManager.API.Controllers
             try
             {
                 var rooms = _context.Room.Where(r => !r.IsDeleted)
-                    .Join(_context.Users, room => room.CurrentGuest, user => user.Id,
-                    (room, user) => new RoomModel
+                    .Select(r => new RoomModel
                     {
-                        Id = room.Id,
-                        DateCreated = room.DateCreated,
-                        CurrentGuest = IsRoomAvailable(room.NextAvailableDate) ? "" : room.CurrentGuest,
-                        CurrentGuestFullname = IsRoomAvailable(room.NextAvailableDate) ? "" : user.FullName,
-                        NextAvailableDate = room.NextAvailableDate
+                        Id = r.Id,
+                        NextAvailableDateString = r.NextAvailableDate.ToString("dd/MMM/yyyy - hh:mm"),
+                        Size = r.Size,
+                        Status = IsRoomAvailable(r.NextAvailableDate) ? "Available" : "Booked",
                     });
+                //.Join(_context.Users, room => room.CurrentGuest, user => user.Id,
+                //(room, user) => new RoomModel
+                //{
+                //    Id = room.Id,
+                //    DateCreated = room.DateCreated,
+                //    CurrentGuest = IsRoomAvailable(room.NextAvailableDate) ? "" : room.CurrentGuest,
+                //    NextAvailableDate = room.NextAvailableDate
+                //});
 
                 return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
                 {
@@ -66,22 +72,17 @@ namespace HotelManager.API.Controllers
         {
             try
             {
-                var rooms = _context.Room.Where(r => !r.IsDeleted)
-                    .Join(_context.Users, room => room.CurrentGuest, user => user.Id,
-                    (room, user) => new RoomModel
-                    {
-                        Id = room.Id,
-                        DateCreated = room.DateCreated,
-                        CurrentGuest = IsRoomAvailable(room.NextAvailableDate) ? "" : room.CurrentGuest,
-                        CurrentGuestFullname = IsRoomAvailable(room.NextAvailableDate) ? "" : user.FullName,
-                        NextAvailableDate = room.NextAvailableDate
-                    });
+                var rooms = _context.Room.Where(r => !r.IsDeleted && r.NextAvailableDate < DateTime.Now)
+                    .Select(r=>new RoomModel { 
+                        Id = r.Id,
+                        NextAvailableDateString = r.NextAvailableDate.ToString("dd/MMM/yyyy - hh:mm"),
+                        Size = r.Size
+                    });;
 
-                //var availableRooms = rooms.Where(r => IsRoomAvailable(r.NextAvailableDate));
                 return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
                 {
                     statusCode = StatusCodes.Status200OK,
-                    data = rooms.Where(r=>r.NextAvailableDate<DateTime.Now),
+                    data = rooms,
                     serverError = false,
                     validationError = false,
                 });
@@ -266,7 +267,7 @@ namespace HotelManager.API.Controllers
                     });
 
                 var userId = _jwtService.GetLoggedInUserId();
-                if (IsRoomAvailable(room.NextAvailableDate))
+                if (!IsRoomAvailable(room.NextAvailableDate))
                     return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
                     {
                         statusCode = StatusCodes.Status200OK,

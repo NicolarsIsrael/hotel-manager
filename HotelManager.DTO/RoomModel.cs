@@ -33,6 +33,7 @@ namespace HotelManager.DTO
         /// </summary>
         public DateTime NextAvailableDate { get; set; }
 
+        public string NextAvailableDateString { get; set; }
         /// <summary>
         /// Id of the current guest in the room
         /// </summary>
@@ -49,6 +50,9 @@ namespace HotelManager.DTO
         /// Size of room
         /// </summary>
         public int Size { get; set; }
+
+
+        public string Status { get; set; }
 
     }
 }

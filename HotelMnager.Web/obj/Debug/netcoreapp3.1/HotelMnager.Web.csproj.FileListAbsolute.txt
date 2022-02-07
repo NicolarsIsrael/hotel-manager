@@ -142,3 +142,4 @@ C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1
 C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Account\SignIn.cshtml.g.cs
 C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateRoom.cshtml.g.cs
 C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Rooms.cshtml.g.cs
+C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Room\Book.cshtml.g.cs
