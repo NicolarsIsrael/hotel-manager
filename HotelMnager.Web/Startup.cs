@@ -1,5 +1,7 @@
+using HotelMnager.Web.ApiManager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,11 @@ namespace HotelMnager.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.AddSession();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            this.ConfigureHttpRequestHandler(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +51,26 @@ namespace HotelMnager.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        public void ConfigureHttpRequestHandler(IServiceCollection services)
+        {
+            services.AddHttpClient<IRequestManager, RequestManager>((serviceCollection, scope) =>
+            {
+                var apiurl = Configuration.GetValue<string>("WebAPIBaseUrl");
+                scope.BaseAddress = new Uri(apiurl,
+                    UriKind.Absolute);
+                scope.Timeout = new TimeSpan(0, 1, 0);
             });
         }
     }
