@@ -102,7 +102,7 @@ namespace HotelManager.API.Controllers
 
         [HttpPost]
         [Route("create-new-room")]
-        [Authorize(Roles =AppConstant.SuperAdminRole)]
+        [Authorize(Roles = AppConstant.SuperAdminRole + "," + AppConstant.HotelStaff)]
         public async Task<IActionResult> Post([FromBody] RoomModel model)
         {
             try
