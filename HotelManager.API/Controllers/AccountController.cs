@@ -123,7 +123,12 @@ namespace HotelManager.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status500InternalServerError,
+                    message = ex.Message,
+                    serverError = true
+                });
             }
         }
 
@@ -185,7 +190,38 @@ namespace HotelManager.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status500InternalServerError,
+                    message = ex.Message,
+                    serverError = true
+                });
+            }
+        }
+
+        [Authorize(Roles = AppConstant.SuperAdminRole)]
+        [Route("staff")]
+        public async Task<IActionResult> GetStaffMembers()
+        {
+            try
+            {
+                var users = await _userManager.GetUsersInRoleAsync(AppConstant.HotelStaff);
+                return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status200OK,
+                    data = users,
+                    serverError = false,
+                    validationError = false
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ApiResponseModel
+                {
+                    statusCode = StatusCodes.Status500InternalServerError,
+                    message = ex.Message,
+                    serverError = true
+                });
             }
         }
     }

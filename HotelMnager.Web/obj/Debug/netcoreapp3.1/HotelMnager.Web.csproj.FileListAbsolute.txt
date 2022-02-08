@@ -147,3 +147,4 @@ C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1
 C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Room\BookedSuccessfully.cshtml.g.cs
 C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Room\CanceledBooking.cshtml.g.cs
 C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\NewHotelStaff.cshtml.g.cs
+C:\Users\DELL\source\repos\Hotel-Manager\HotelMnager.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Staff.cshtml.g.cs

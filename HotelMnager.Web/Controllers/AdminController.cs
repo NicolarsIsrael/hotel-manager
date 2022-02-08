@@ -1,4 +1,5 @@
-﻿using HotelManager.DTO;
+﻿using HotelManager.Core;
+using HotelManager.DTO;
 using HotelManager.Utility;
 using HotelMnager.Web.ApiManager;
 using Microsoft.AspNetCore.Authorization;
@@ -93,5 +94,19 @@ namespace HotelMnager.Web.Controllers
             return RedirectToAction("index", "home");
         }
 
+        [Authorize(Roles =AppConstant.SuperAdminRole)]
+        public async Task<IActionResult> Staff()
+        {
+            var result = await _requestManager.Send<string, ApiResponseModel>(_urlManager.AccountStaff(), null, HttpMethod.Get);
+            if (!result.serverError && result.validationError)
+            {
+                ModelState.AddModelError("", result.message);
+                return View();
+            }
+            else if (result.serverError) { return RedirectToAction("error", "Home"); }
+
+            var staff = JsonConvert.DeserializeObject<IEnumerable<ApplicationUser>>(result.data.ToString());
+            return View(staff);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace HotelMnager.Web.ApiManager
         public string AccountSignUp() { return $"{ApiBase}account/sign-up"; }
         public string AccountSignIn() { return $"{ApiBase}account/sign-in"; }
         public string AccountCreateStaff() { return $"{ApiBase}account/new-hotel-staff"; }
+        public string AccountStaff() { return $"{ApiBase}account/staff"; }
         #endregion
 
         #region room controller
